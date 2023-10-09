@@ -70,7 +70,7 @@
     
     @foreach ($books as $book)
     <div class="book">
-        <a href="{{$book['id']}}">
+        <a href="/books/{{$book['id']}}">
             <img src="{{ asset('images/' . ($book['id'] < $filecount ? $book['id'] : '4') . '.jpg') }}" alt="Book Cover">
             <h2><a href="{{$book['id']}}">{{ $book['name'] }}</a></h2>
         </a>

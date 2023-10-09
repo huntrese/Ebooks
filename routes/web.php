@@ -29,3 +29,10 @@ Route::get('/book/{book_id}', function ($book_id) {
 Route::get('/books/{book_id}', function ($book_id) {
     return view("home",['book'=>Books::find($book_id)]);
 });
+
+Route::get('/library', function () {
+    return view('library',["books"=>Books::all()]);
+});
+Route::get('/recent', function () {
+    return view('recent');
+});

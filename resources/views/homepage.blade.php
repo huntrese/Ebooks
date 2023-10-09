@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-    <h1>Featured</h1>
+
     <x-booksPreview :books="$books"/>
 </body>
 </html>
