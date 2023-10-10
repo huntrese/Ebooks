@@ -64,7 +64,7 @@
         $files2 = glob($directory . "*");
      
         if ($files2) {
-            $filecount = count($files2);
+            $filecount = count($files2)-1 ;
         }
     ?>
     

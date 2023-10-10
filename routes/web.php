@@ -14,7 +14,7 @@ use App\Models\Books;
 */
 
 Route::get('/', function () {
-    return Books::all();
+    return view('homepage',["books"=>Books::all()]);
 });
 
 Route::get('/books', function () {
@@ -35,4 +35,8 @@ Route::get('/library', function () {
 });
 Route::get('/recent', function () {
     return view('recent');
+});
+
+Route::get('/user', function () {
+    return view('userprofile');
 });

@@ -1,16 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>My Favorites</title>
     <style>
         /* Your existing CSS styles here */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+
         /* Additional styles for Favorites tab */
         .favorites-container {
             display: flex;
@@ -46,9 +41,10 @@
         /* Add more styles as needed */
     </style>
 </head>
+<x-navbar />
+
 <body>
     <!-- Navigation Bar -->
-    <x-navbar />
     <x-tabchanger />
 
     <!-- Favorites Tab Content -->
