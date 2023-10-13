@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Books;
+use App\Models\Users;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,7 @@ use App\Models\Books;
 */
 
 Route::get('/', function () {
-    return view('homepage',["books"=>Books::all()]);
+    return Users::all();
 });
 
 Route::get('/books', function () {
