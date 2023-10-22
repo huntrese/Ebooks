@@ -71,7 +71,7 @@
     <nav>
         <ul>
             <li><a href="/"><img src="{{ asset('images/logo(2).png') }}" alt="/" class="logo" href="/"></a></li>
-            <li><a href="/books">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="/library">Library</a></li>
             <!-- Use a separate ul.user-icon for the user icon -->
             <ul class="user-icon">

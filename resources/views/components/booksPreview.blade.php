@@ -70,10 +70,13 @@
     
     @foreach ($books as $book)
     <div class="book">
-        <a href="/books/{{$book['id']}}">
-            <img src="{{ asset('images/' . ($book['id'] < $filecount ? $book['id'] : '4') . '.jpg') }}" alt="Book Cover">
-            <h2><a href="{{$book['id']}}">{{ $book['name'] }}</a></h2>
+        <a href="/books/{{$book->book_ID}}">
+            <img src="{{asset(''.$book->image_path)}}" alt="Book Cover">
+            <h2>{{ $book->name }}</h2>
         </a>
     </div>
-    @endforeach
-</div>
+@endforeach
+
+
+
+    </div>
