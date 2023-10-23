@@ -41,6 +41,12 @@
         text-decoration: none; /* Remove default underlining */
         color: inherit; /* Inherit the parent color (black) */
     }
+    .book-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Use the default text color */
+    /* Add other styles as needed */
+}
+
 
     @media screen and (max-width: 767px) {
         .carousel {
@@ -70,10 +76,11 @@
     
     @foreach ($books as $book)
     <div class="book">
-        <a href="/books/{{$book->book_ID}}">
-            <img src="{{asset(''.$book->image_path)}}" alt="Book Cover">
+        <a href="/books/{{$book->book_ID}}" class="book-link">
+            <img src="{{ asset(''.$book->image_path) }}" alt="Book Cover">
             <h2>{{ $book->name }}</h2>
         </a>
+        
     </div>
 @endforeach
 

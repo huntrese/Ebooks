@@ -168,7 +168,7 @@
         
         <!-- About Content -->
         <div class="about-content">
-        <h3><html>{{ $book->Description }}</html></h3>
+        <h3><html>{!! $book->Description !!}</html></h3>
 
         </div>
 
@@ -196,9 +196,10 @@
     @endphp
 
     @foreach ($sortedChapters as $chapter)
-        <a class="chapter-link" href="{{$book->book_ID}}/{{$chapter->position}}">{{$chapter->chapter_name}}</a>
+        <a class="chapter-link" href="{{$book->book_ID}}/{{$sortedChapters->search($chapter) + 1}}">{{$chapter->chapter_name}}</a>
     @endforeach
 </div>
+
 
 
 
