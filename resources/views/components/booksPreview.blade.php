@@ -3,20 +3,20 @@
 <style>
     .carousel {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(calc(16.6667% - 20px), 1fr)); /* 6 columns for 6x2, 4 columns for 4x3 */
+        grid-template-columns: repeat(auto-fit, minmax(calc(16.6667% - 20px), 1fr));
         grid-gap: 10px;
         width: 98%;
         margin: 0 auto;
     }
 
     .book {
-        flex: 0 0 calc(16.6667% - 20px); /* 16.6667% width for 6 books in a row, minus 20px for margins */
+        flex: 0 0 calc(16.6667% - 20px);
         background-color: #f5f5f5;
         border-radius: 10px;
         text-align: center;
         box-sizing: border-box;
-        transition: transform 0.3s ease; /* Add a smooth transition on hover */
-        overflow: hidden; /* Hide overflowing text */
+        transition: transform 0.3s ease;
+        overflow: hidden;
     }
 
     .book img {
@@ -25,65 +25,67 @@
         margin-bottom: 10px;
     }
 
-    /* Adjust font size and text overflow based on viewport width for book title and other text elements */
-    .book h2,
-    .book p {
-        font-size: 14px; /* Default font size */
-        white-space: normal; /* Allow text to wrap to the next line */
-        overflow: hidden; /* Hide overflowing text */
-        text-overflow: ellipsis; /* Add ellipsis (...) for overflow */
+    .book h2, .book p {
+        font-size: 14px;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 2; /* Display up to 2 lines */
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
     }
 
     .book h2 a {
-        text-decoration: none; /* Remove default underlining */
-        color: inherit; /* Inherit the parent color (black) */
+        text-decoration: none;
+        color: inherit;
     }
-    .book-link {
-    text-decoration: none; /* Remove underline */
-    color: inherit; /* Use the default text color */
-    /* Add other styles as needed */
-}
 
+    .book-link {
+        text-decoration: none;
+        color: inherit;
+    }
 
     @media screen and (max-width: 767px) {
         .carousel {
-            grid-template-columns: repeat(auto-fit, minmax(calc(25% - 20px), 1fr)); /* 4 columns for 4x3 on smaller screens */
+            grid-template-columns: repeat(auto-fit, minmax(calc(25% - 20px), 1fr));
         }
 
-        /* Adjust font size and text overflow for smaller screens */
-        .book h2,
-        .book p {
-            font-size: 14px; /* Smaller font size for smaller screens */
+        .book h2, .book p {
+            font-size: 14px;
         }
     }
+   /* Add space below each main div */
+div {
+    margin-bottom: 2vh; /* Adjust the value to control the amount of space */
+}
+
 </style>
 
 <div class="carousel">
     <?php
-        $directory = getcwd()."/images/";
-        // Initialize file count variable
-        $filecount = 0;
-     
+        $directory = getcwd() . "/images/";
         $files2 = glob($directory . "*");
-     
-        if ($files2) {
-            $filecount = count($files2)-1 ;
-        }
+        $filecount = count($files2) - 1;
     ?>
-    
+
+    @php $carouselCount = -1; @endphp
+
     @foreach ($books as $book)
-    <div class="book">
-        <a href="/books/{{$book->book_ID}}" class="book-link">
-            <img src="{{ asset(''.$book->image_path) }}" alt="Book Cover">
-            <h2>{{ $book->name }}</h2>
-        </a>
-        
-    </div>
-@endforeach
+        @php
+        $carouselCount++;
+        if ($carouselCount >= 12) {
+            break;
+        }
+         @endphp
+        <div class="book">
+            <a href="/books/{{$book->book_ID}}" class="book-link">
+                <img src="{{ asset(''.$book->image_path) }}" alt="Book Cover">
+                <h2>{{ $book->name }}</h2>
+            </a>
+        </div>
+
+       
+    @endforeach
 
 
 
-    </div>

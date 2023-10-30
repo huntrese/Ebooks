@@ -1,9 +1,13 @@
+@props(['chapters','chapter','prev','next',"indexes"])
+
+<x-navbar />
+
 <html>
 <head>
-    <title>{{$chapter["chapter_name"]}}</title>
+    <title>{{$chapter->chapter_name}}</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
@@ -32,7 +36,6 @@
     </style>
 </head>
 <body>
-    <x-navbar />
 
     <div class="chapter">
         <h1>{{$chapter['chapter_name']}}</h1>
@@ -41,6 +44,6 @@
         </p>
     </div>
     {{-- {{$prev}}   {{$next}} --}}
-    <x-chapterNav :chapters="$chapters" :chapter_name="$chapter['chapter_name']" :prev="$prev" :next="$next"/>
+    <x-chapterNav :chapters="$chapters" :chapter="$chapter" :prev="$prev" :next="$next" :indexes="$indexes"/>
 </body>
 </html>

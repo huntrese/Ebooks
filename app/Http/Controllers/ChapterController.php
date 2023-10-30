@@ -23,7 +23,8 @@ class ChapterController extends Controller
         ->skip($chapter_no - 1) // -1 because array indexes start at 0
         ->take(1)
         ->first();
-    $prev=-1;
+        $indexes = range(0, count($chapters) - 1);
+        $prev=-1;
     $next=-1;
     if (!$chapter) {
         return response()->json(['error' => 'Chapter not found'], 404);
@@ -35,7 +36,7 @@ class ChapterController extends Controller
         $next=$chapter_no+1;}
     }
 
-    return view("chapter",compact('chapters','chapter',"prev","next"));
+    return view("chapter",compact('chapters','chapter',"prev","next","indexes"));
 }
 
 

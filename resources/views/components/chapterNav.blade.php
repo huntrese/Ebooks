@@ -1,4 +1,4 @@
-@props(['chapter_name','prev','next','chapters'])
+@props(['chapters','chapter','prev','next',"indexes"])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,12 +55,9 @@
             align-items: center;
         }
 
-        .burger-button {
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #333;
-            cursor: pointer;
+        .dropdown {
+            left:1vw;
+
         }
 
         .chapter-name {
@@ -80,10 +77,10 @@
         .chapter-dropdown {
             display: none;
             position: absolute;
-            top: 40px; /* Adjust the positioning as needed */
-            left: 0;
-            background-color: #fff; /* White background for the dropdown */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            top: 20x; /* Adjust the positioning as needed */
+            left: 20px;
+            background-color: #ecece8; /* White background for the dropdown */
+            box-shadow: 10 4px 4px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
         }
 
@@ -95,8 +92,6 @@
 
         .chapter-dropdown ul li {
             display: flex;
-            align-items: center;
-            padding: 10px;
         }
 
         .chapter-dropdown ul li a {
@@ -109,9 +104,10 @@
             border: none;
             color: #333;
             cursor: pointer;
-            border-radius: 3px;
+            border-radius: 1px;
             padding: 5px 10px;
-            margin-left: 10px;
+            padding-left: 4vw;
+            margin-left: 10vw;
         }
 
         .chapter-tab {
@@ -119,37 +115,53 @@
             position: absolute;
             background-color: #fff;
             min-width: 200px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 4 4px 4px rgba(0, 0, 0, 0.1);
             z-index: 1;
             top: -200px; /* Adjust this value to control the position of the tab */
         }
+        .dropdown-menu-up {
+        top: auto;
+        bottom: 100%;
+        /* width: 30vw; */
+        height: 80vh; /* Adjust the maximum height as needed for scrolling */
+        overflow-y: auto; /* Enable vertical scrolling if the content exceeds the maximum height */
+    }
+    .message-box {
+    display: none;
+    /* Your existing styles for message box */
+    position: absolute;
+    /* top: 100%; Position the message box below the chapter name */
+    left: 80%;
+    z-index: 1; /* Ensure it's behind the chapter name */
+}
     </style>
 </head>
 <body>
-
     <nav>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="burger-menu" data-bs-toggle="dropdown" aria-expanded="false">
                 &#9776;
             </button>
-            <ul class="dropdown-menu" aria-labelledby="burger-menu">
-                @foreach ($chapters as $chapter)
+            <ul class="dropdown-menu dropdown-menu-up" aria-labelledby="burger-menu">
+                @foreach ($indexes as $index)
+                
                     <li>
-                        <a class="dropdown-item" href="/books/{{$chapter->book_ID}}/{{$chapter->chapter_number}}">
-                            Chapter {{ $chapter->chapter_number }}: {{ $chapter->title }}
+                        <a class="dropdown-item" href="/books/{{$chapter->book_ID}}/{{$index+1}}">
+                            {{$chapters[$index]["chapter_name"] }}
                         </a>
                     </li>
                 @endforeach
             </ul>
         </div>
-        <div class="chapter-name" id="chapter-name">{{$chapter_name}}</div>
-        
+        <div class="chapter-name" id="chapter-name">{{$chapter->chapter_name}}</div>
+        <div class="message-box" id="message-box">This is the first/last chapter.</div>
+
         <div class="navigation-button">
             <button class="button" id="previous-chapter">&#60;</button>
             <button class="button" id="next-chapter">&#62;</button>
         </div>
-        <div class="message-box" id="message-box">This is the first/last chapter.</div>
     </nav>
+    
 <script>
     const prevButton = document.getElementById("previous-chapter");
         const nextButton = document.getElementById("next-chapter");
@@ -161,7 +173,9 @@
             if ({{$prev}} === -1) {
                 messageBox.style.display = "block";
                 messageBox.textContent = "This is the first chapter.";
+                messageBox.classList.add("active"); // Show the message box and add the "active" class
             } else {
+                messageBox.classList.remove("active");
                 navigateToChapter({{$prev}});
             }
         });
@@ -170,7 +184,9 @@
             if ({{$next}} === -1) {
                 messageBox.style.display = "block";
                 messageBox.textContent = "This is the last chapter.";
+                messageBox.classList.add("active"); // Show the message box and add the "active" class
             } else {
+                messageBox.classList.remove("active");
                 navigateToChapter({{$next}});
             }
         });

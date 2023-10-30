@@ -6,6 +6,13 @@
 <x-navbar />    
 
 <body>
-    <x-booksPreview :books="$books"/>
+    <div>
+        <h2>Featured:</h2>
+        <x-booksPreview :books="$books"/>
+    </div>
+    <div>
+        <h2>Upcoming:</h2>
+        <x-booksPreview :books="$books"/>
+    </div>
 </body>
 </html>

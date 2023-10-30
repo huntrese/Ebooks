@@ -30,7 +30,7 @@ class BookController extends Controller
         $chapters = Chapters::where('book_ID', $book_id)
             ->get();
     
-        return view('home', compact('book', 'author', 'chapters'));
+        return view('book', compact('book', 'author', 'chapters'));
     }
     
     
