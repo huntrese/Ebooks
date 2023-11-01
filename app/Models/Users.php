@@ -2,19 +2,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class Users extends Authenticatable
 {
+    use HasFactory, Notifiable;
+
     protected $table = 'users';
     protected $primaryKey = 'user_ID';
+    protected $fillable = ['name', 'email', 'password'];
     public $timestamps = false;
 
-    use HasFactory;
-
-    // Define a relationship for the library (if needed)
-    public function library()
-    {
-        return $this->belongsToMany(Book::class, 'library', 'user_ID', 'book_ID');
-    }
+    
 }
+

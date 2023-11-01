@@ -6,12 +6,7 @@
 <head>
     <title>{{$chapter->chapter_name}}</title>
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
+
 
         .chapter {
             max-width: 800px;

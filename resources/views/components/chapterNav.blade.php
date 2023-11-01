@@ -9,19 +9,13 @@
 
     <style>
         /* Your existing styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
 
-        nav {
+        .chapterNav {
             background-color: #fff; /* White navbar background */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 10px 0; /* Add padding to the top and bottom of the navbar */
             display: flex;
-            justify-content: space between; /* Align items at each end of the navbar */
+            justify-content: space-between; /* Align items at each end of the navbar */
             align-items: center; /* Vertically center items */
         }
 
@@ -30,7 +24,7 @@
         }
 
         .button {
-            background-color: #fff; /* Match the nav background color */
+            background-color: #fff; /* Match the chapterNav background color */
             border: none;
             font-size: 24px;
             color: #333;
@@ -40,7 +34,7 @@
             width: 40px;
             height: 40px;
             text-align: center;
-            transition: background-color 0.3s; /* Add a smooth transition effect */
+            transition: 0.3s; /* Add a smooth transition effect */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -137,7 +131,7 @@
     </style>
 </head>
 <body>
-    <nav>
+    <div class="chapterNav">
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="burger-menu" data-bs-toggle="dropdown" aria-expanded="false">
                 &#9776;
@@ -160,7 +154,7 @@
             <button class="button" id="previous-chapter">&#60;</button>
             <button class="button" id="next-chapter">&#62;</button>
         </div>
-    </nav>
+    </div>
     
 <script>
     const prevButton = document.getElementById("previous-chapter");

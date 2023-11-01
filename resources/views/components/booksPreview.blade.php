@@ -17,15 +17,16 @@
         box-sizing: border-box;
         transition: transform 0.3s ease;
         overflow: hidden;
+        margin-bottom: 2vh; /* Add space below each book */
     }
 
-    .book img {
+    .book-image {
         max-width: 100%;
         height: auto;
         margin-bottom: 10px;
     }
 
-    .book h2, .book p {
+    .book-title {
         font-size: 14px;
         white-space: normal;
         overflow: hidden;
@@ -33,11 +34,6 @@
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
-    }
-
-    .book h2 a {
-        text-decoration: none;
-        color: inherit;
     }
 
     .book-link {
@@ -50,16 +46,12 @@
             grid-template-columns: repeat(auto-fit, minmax(calc(25% - 20px), 1fr));
         }
 
-        .book h2, .book p {
+        .book-title {
             font-size: 14px;
         }
     }
-   /* Add space below each main div */
-div {
-    margin-bottom: 2vh; /* Adjust the value to control the amount of space */
-}
-
 </style>
+
 
 <div class="carousel">
     <?php
@@ -79,13 +71,9 @@ div {
          @endphp
         <div class="book">
             <a href="/books/{{$book->book_ID}}" class="book-link">
-                <img src="{{ asset(''.$book->image_path) }}" alt="Book Cover">
-                <h2>{{ $book->name }}</h2>
+                <img src="{{ asset(''.$book->image_path) }}" alt="Book Cover" class="book-image">
+                <h2 class="book-title">{{ $book->name }}</h2>
             </a>
         </div>
-
-       
     @endforeach
-
-
-
+</div>
