@@ -123,7 +123,7 @@
         top: auto;
         bottom: 100%;
         /* width: 30vw; */
-        height: 80vh; /* Adjust the maximum height as needed for scrolling */
+        max-height: 80vh; /* Adjust the maximum height as needed for scrolling */
         overflow-y: auto; /* Enable vertical scrolling if the content exceeds the maximum height */
     }
     .message-box {
