@@ -25,7 +25,7 @@ class AccountFactory extends Factory
         // Generate a URL for a placeholder image using Faker
         $imageWidth = 100;
         $imageHeight = 100;
-        $imageUrl = "https://via.placeholder.com/{$imageWidth}x{$imageHeight}";
+        $imageUrl = "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg";
 
         return $imageUrl;
     }

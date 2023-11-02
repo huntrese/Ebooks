@@ -34,10 +34,4 @@ class BookController extends Controller
     }
     
     
-    
-    public function library()
-    {
-        $books = Books::all();
-        return view('library', compact('books'));
-    }
 }

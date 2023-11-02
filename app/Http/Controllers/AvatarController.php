@@ -18,4 +18,38 @@ class AvatarController extends Controller
 
         return view('userprofile', compact('account'));
     }
+    // app/Http/Controllers/AccountController.php
+
+
+// ...
+
+public function updateAvatar(Request $request)
+{
+    // Validate and save the new profile picture (avatar)
+    $request->validate([
+        'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Example validation rules
+    ]);
+    $user = Auth::user();
+
+    Account::find($user->user_ID)->avatar = $request->avatar;
+    
+    Account::find($user->user_ID)->save();
+
+    return response()->json(['message' => 'Avatar updated successfully']);
+}
+
+public function updateDescription(Request $request)
+{
+    // Validate and save the new description
+    $request->validate([
+        'description' => 'required|string|max:255', // Example validation rules
+    ]);
+
+    $user = Auth::user();
+    Account::find($user->user_ID)->description = $request->description;
+    
+    Account::find($user->user_ID)->save();
+    return response()->json(['message' => 'Description updated successfully']);
+}
+
 }

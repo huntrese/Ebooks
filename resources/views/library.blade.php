@@ -16,11 +16,6 @@
 
     </div>
 
-    <!-- Recent Tab Content (hidden by default) -->
-    <x-booksPreview :books="$books" id="recent-content" style="display: none;"/>
-        <!-- Content for Recent tab here -->
-    </div>
-
     <!-- Footer or additional content can be added here -->
 </body>
 </html>

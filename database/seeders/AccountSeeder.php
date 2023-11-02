@@ -7,6 +7,11 @@ class AccountSeeder extends Seeder
 {
     public function run()
     {
-        Account::factory()->count(10)->create();
+        $userCount = \App\Models\Users::count();
+        $userIDs = range(1, $userCount);
+
+        foreach ($userIDs as $userID) {
+            Account::factory()->create(['account_ID' => $userID]);
+        }
     }
 }

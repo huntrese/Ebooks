@@ -1,5 +1,4 @@
-@props(['books'])
-@props(['books'])
+@props(['books','chapterNumbers'])
 
 <style>
     .carousel {
@@ -50,33 +49,22 @@
 
     @media screen and (max-width: 767px) {
         .carousel {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        .book {
-            flex: 0 0 calc(25% - 20px);
+            grid-template-columns: repeat(auto-fit, minmax(calc(25% - 20px), 1fr));
         }
 
         .book-title {
-            font-size: 12px; /* Adjust the font size for smaller screens */
-        }
-    }
-
-    @media screen and (min-width: 768px) {
-        .carousel {
-            grid-template-columns: repeat(6, 1fr);
-        }
-
-        .book {
-            flex: 0 0 calc(12.5% - 20px);
+            font-size: 14px;
         }
     }
 </style>
 
+
 <div class="carousel">
+
+
     <?php foreach ($books as $book) : ?>
         <div class="book">
-            <a href="/books/{{$book->book_ID}}" class="book-link">
+            <a href="/books/{{$book->book_ID}}/{{$chapterNumbers[$book->book_ID]}}" class="book-link">
                 <img src="{{ asset(''.$book->image_path) }}" alt="Book Cover" class="book-image">
                 <h2 class="book-title">{{ $book->name }}</h2>
             </a>
@@ -84,13 +72,12 @@
     <?php endforeach; ?>
 </div>
 
-
 <script>
     // Get the carousel element
     const carousel = document.querySelector('.carousel');
 
     // Calculate the width of each book element
-    const bookWidth = totalWidth / 12;
+    const bookWidth = totalWidth / 16;
     // Calculate the margin-left for each book element
     const marginLeft = bookWidth / 2;
 

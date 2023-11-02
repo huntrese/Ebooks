@@ -10,10 +10,11 @@
         #profile-container {
             max-width: 600px;
             margin: 0 auto;
-            background-color: #fff;
+            background-color: #f7f7f7;
             padding: 20px;
+            margin-top: 10vh;
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
@@ -114,8 +115,8 @@
 
 <body>
     <div id="profile-container">
-        <img src="{{ asset('images/2.jpg') }}" alt="Profile Picture" id="profile-picture">
-        <div id="nickname">{{$account->avatar}}</div>
+        <img src="{{$account->avatar}}" alt="Profile Picture" id="profile-picture">
+        <div id="nickname">{{$account->nickname}}</div>
         <div id="description">
           {{ $account->description}}
         </div>
@@ -139,16 +140,10 @@
                 <button class="settings-button">Edit your description</button>
             </div>
 
-            <!-- Security (Change Password) -->
-            <div class="settings-label">Security</div>
-            <div class="settings-option">
-                <button class="settings-button" style="background-color: #FF0000; border: 2px solid #212121;">Change Password</button>
-            </div>
-
             <!-- Clear Favorites -->
-            <div class="settings-label">Favorites</div>
+            <div class="settings-label">Recents</div>
             <div class="settings-option">
-                <button class="clear-favorites-button">Clear Favorites</button>
+                <button class="clear-favorites-button">Clear Recents</button>
             </div>
         </div>
     </div>
