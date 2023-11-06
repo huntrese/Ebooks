@@ -33,15 +33,20 @@ h1 {
     font-size: 18px;
     margin-top: 10px;
 }
+.book-link {
+    text-decoration: none;
+    color: inherit;
+}
 
 </style>
 <x-navbar />
 <div class="container">
-    @if(isset($details))
+    @if(isset($books))
         <h2>Search results for your query: <b>{{ $query }}</b></h2>
 
-        @foreach($details as $book)
+        @foreach($books as $book)
         <div class="book-card">
+            <a href="/books/{{$book->book_ID}}" class="book-link">
             <div class="book-image">
                 <img src="{{ asset($book->image_path) }}" alt="Book Cover">
             </div>
@@ -49,6 +54,7 @@ h1 {
                 <h1>{{ $book->name }}</h1>
                 <p class="author">{{ $book->author->name }}</p>
             </div>
+            </a>
         </div>
         @endforeach
     @else

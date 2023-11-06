@@ -98,16 +98,23 @@
             text-align: left;
         }
 
-        /* Clear Favorites Button Styles */
-        .clear-favorites-button {
-            background-color: #dddddd;
-            color: #212121;
-            border: 2px solid #FF0000;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+/* Unified Button Styles */
+.settings-button, .clear-favorites-button, .logout-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+/* Red Hue for Log Out Button */
+.logout-button {
+    background-color: #FF0000;
+}
+
     </style>
 </head>
 
@@ -129,22 +136,26 @@
             <span class="close-button" onclick="closeModal()">&#10006;</span>
             <h2>Settings</h2>
 
-            <div class="settings-label">Change Profile Picture</div>
+
             <div class="settings-option">
                 <button class="settings-button">Upload a new picture</button>
             </div>
 
-            <!-- Change Description -->
-            <div class="settings-label">Change Description</div>
+
             <div class="settings-option">
                 <button class="settings-button">Edit your description</button>
             </div>
 
-            <!-- Clear Favorites -->
-            <div class="settings-label">Recents</div>
+
             <div class="settings-option">
                 <button class="clear-favorites-button">Clear Recents</button>
             </div>
+
+            <!-- Log Out Button -->
+            <div class="settings-option">
+                <button class="logout-button">Log Out</button>
+            </div>
+
         </div>
     </div>
     <br>
@@ -158,6 +169,67 @@
         function openModal() {
             document.getElementById('settingsModal').style.display = 'block';
         }
+
+        const uploadButton = document.querySelector(".settings-button");
+
+uploadButton.addEventListener("click", () => {
+    // Create an input element to select a file
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.addEventListener('change', (event) => {
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            // Send the file to the server for processing using AJAX or fetch
+            // You'll need a server-side endpoint to handle the file upload
+            alert(`Uploading file: ${selectedFile.name}`);
+        }
+    });
+    fileInput.click(); // Trigger the file input dialog
+});
+const editDescriptionButton = document.querySelector(".settings-button");
+
+editDescriptionButton.addEventListener("click", () => {
+    // Display a modal or input field for the user to edit their description
+    const newDescription = prompt("Edit your description:");
+    if (newDescription !== null) {
+        // Send the new description to the server for updating the user's profile
+        alert(`Description updated: ${newDescription}`);
+    }
+});
+const clearRecentsButton = document.querySelector(".clear-favorites-button");
+
+clearRecentsButton.addEventListener("click", () => {
+    const confirmed = confirm("Are you sure you want to clear your recents?");
+    if (confirmed) {
+        // Implement the logic to clear the recents (e.g., making an AJAX request)
+        alert("Recents cleared.");
+    }
+});
+    const logoutButton = document.querySelector(".logout-button");
+
+    logoutButton.addEventListener("click", () => {
+        // Send a request to log the user out
+        fetch('{{ route('logout') }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+        })
+        .then(response => {
+            if (response.status === 200) {
+                // Redirect the user to the login page or perform other actions as needed
+                window.location.href = '{{ route('login') }}'; // Redirect to the login page
+            } else {
+                // Handle errors or show a message to the user
+                console.error('Logout failed');
+            }
+        });
+    });
+
+
+
+
     </script>
 </body>
 

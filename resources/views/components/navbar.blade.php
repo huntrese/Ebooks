@@ -107,6 +107,20 @@
         .general-site-navbar #search:valid + .general-site-navbar #search-tooltip {
             display: none;
         }
+        /* Styles for the login and register buttons */
+        .general-site-navbar .user-icon a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 2vh;
+            padding: 0.5vh 2vh;
+            margin-right: 2%;
+        }
+
+        .general-site-navbar .user-icon a:hover {
+            color: #007BFF;
+        }
+
     </style>
 </head>
 <body>
@@ -125,12 +139,21 @@
                 </form>
             </li>
             <ul class="user-icon">
-                <li><a href="/user">Login</a></li>
-                <li><a href="/user">Register</a></li>
-                <li class="user-icon-item"><a href="/user"><img src="{{ asset('images/user.png') }}" alt="" class="user"></a></li>
+                @guest
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                @else
+
+                    <li class="user-icon-item"><a href="/user"><img src="{{ asset('images/user.png') }}" alt="" class="user"></a></li>
+                @endguest
             </ul>
+            
         </ul>
     </nav>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+    
 </body>
 </html>
 
@@ -141,18 +164,20 @@ $(document).ready(function() {
     $('#search-tooltip').hide(); // Initially hide the tooltip
 
     $('#search').on('input', function() {
-
-        $('body').on('keydown', '#search', function(e) {
-        if (e.key === 'Enter') {
-            if ($(this).val().length <= 2) {
-                e.preventDefault();
+        if ($(this).val().length <= 2) {
+            $('#search-tooltip').fadeIn(400); // Show the tooltip
         } else {
             $('#search-tooltip').fadeOut(400); // Hide the tooltip
         }
-        }
     });
-        
+
+    $('#search').on('keydown', function(e) {
+        if ($(this).val().length <= 2 && e.key === 'Enter') {
+            e.preventDefault(); // Disable Enter key if the input length is less than 2
+        }
     });
 });
 </script>
+
+
 

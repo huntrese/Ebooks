@@ -7,6 +7,7 @@ use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\RecentController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\Auth\LoginController;
 use \Illuminate\Support\Facades\Auth;
 
 Route::get('/', [BookController::class, 'index']);
@@ -21,7 +22,8 @@ Route::any('/search', [SearchController::class, 'search']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// routes/web.php
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 
 Route::post('/update-avatar', 'AccountController@updateAvatar')->name('update.avatar');
 Route::post('/update-description', 'AccountController@updateDescription')->name('update.description');

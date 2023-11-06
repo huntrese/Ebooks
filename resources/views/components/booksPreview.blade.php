@@ -5,9 +5,11 @@
     .carousel {
         display: grid;
         grid-template-columns: repeat(16, minmax(calc(16.6667% - 20px), 1fr));
+        background-color: #f0f7fa;
         grid-gap: 10px;
         width: 98%;
         margin: 0 auto;
+        padding: 2vh;
     }
 
     .book {
@@ -72,17 +74,20 @@
         }
     }
 </style>
-
 <div class="carousel">
+    <?php $bookCount = 0; // Initialize a counter for the number of books displayed ?>
     <?php foreach ($books as $book) : ?>
+        <?php if ($bookCount >= 12) break; // Check if we've reached the maximum number of books ?>
         <div class="book">
             <a href="/books/{{$book->book_ID}}" class="book-link">
                 <img src="{{ asset(''.$book->image_path) }}" alt="Book Cover" class="book-image">
                 <h2 class="book-title">{{ $book->name }}</h2>
             </a>
         </div>
+        <?php $bookCount++; // Increment the book count ?>
     <?php endforeach; ?>
 </div>
+
 
 
 <script>
