@@ -1,5 +1,5 @@
 @props(['books'])
-@props(['books'])
+
 
 <style>
     .carousel {

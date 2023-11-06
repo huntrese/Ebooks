@@ -15,19 +15,23 @@ class LibraryController extends Controller
     public function library()
 {
 
-    // Get all book_IDs for the user
-// Get all book_IDs for the user
-$userBookIDs = Library::where('user_ID', Auth::user()->user_ID)->pluck('book_ID')->toArray();
+    $user = Auth::user();
+    if(Auth::check()){
+        $userBookIDs = Library::where('user_ID', Auth::user()->user_ID)->pluck('book_ID')->toArray();
 
-// Count the number of book IDs
-$count = count($userBookIDs);
+        // Count the number of book IDs
+        $count = count($userBookIDs);
 
-// Get all book objects for the user
-$books = Books::whereIn('book_ID', $userBookIDs)->get();
+        // Get all book objects for the user
+        $books = Books::whereIn('book_ID', $userBookIDs)->get();
 
-// Output the count
+        // Output the count
 
 
-    return view('library', compact('books'));
+        return view('library', compact('books'));
+
+    } else{
+        return view('please_login');
+    }
 }
 }

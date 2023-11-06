@@ -5,8 +5,8 @@
 </head>
 <body>
     <div>
-        <h1>Please Log In</h1>
-        <p>You need to be logged in to access this page.</p>
+        <x-navBar/>
+        <h1>You must be logged in to access this feature</h1>
     </div>
 </body>
 </html>

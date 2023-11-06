@@ -18,13 +18,14 @@ class ChapterController extends Controller
     if (!$book) {
         return response()->json(['error' => 'Book not found'], 404);
     }
-
+    $recent = null;
+    if (Auth::check()){
     $user_id = Auth::user()->user_ID;
 
     $recent = Recent::where('book_id', $book_id)
         ->where('user_id', $user_id)
         ->first();
-
+    
     if ($recent === null) {
         // The book is not in the recent list, so create a new entry with the chapter.
         Recent::create([
@@ -40,6 +41,7 @@ class ChapterController extends Controller
                 ->where('book_id', $book_id) // Add this condition to restrict the update to the specific book
                 ->update(['chapter' => $chapter_no]);
         }
+    }
     }
 
     

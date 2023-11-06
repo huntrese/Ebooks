@@ -12,12 +12,15 @@ class AvatarController extends Controller
     {
         // Retrieve the currently authenticated user
         $user = Auth::user();
-        $account = Account::find($user->user_ID);
-        // You can also use the auth() helper function:
-        // $user = auth()->user();
+        if(Auth::check()){
+            $account = Account::find($user->user_ID);
+            return view('userprofile', compact('account'));
 
-        return view('userprofile', compact('account'));
-    }
+        } else{
+            return view('please_login');
+        }
+}
+
     // app/Http/Controllers/AccountController.php
 
 

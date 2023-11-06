@@ -3,18 +3,19 @@
 <head>
     <!-- Your head content goes here -->
     <style>
-        .navbar {
-            
+        /* Styles for the general-site-navbar */
+        .general-site-navbar {
             background-color: #fff;
             box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
             padding: 0.5vh 0;
+            font-family: 'Lora';
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* Navigation List */
-        .nav-list {
+        /* Styles for the nav-list within general-site-navbar */
+        .general-site-navbar .nav-list {
             list-style-type: none;
             padding: 0;
             margin: 0;
@@ -22,14 +23,14 @@
             align-items: center;
         }
 
-        /* Navigation Items */
-        .nav-item {
+        /* Styles for the nav-item within nav-list */
+        .general-site-navbar .nav-list .nav-item {
             margin-right: 2%;
             max-height: 5vh;
         }
 
-        /* Navigation Links */
-        .nav-link {
+        /* Styles for the nav-link within nav-item */
+        .general-site-navbar .nav-list .nav-item .nav-link {
             text-decoration: none;
             color: #333;
             font-weight: bold;
@@ -37,12 +38,12 @@
             padding: 0.5vh 2vh;
         }
 
-        .nav-link:hover {
+        .general-site-navbar .nav-list .nav-item .nav-link:hover {
             color: #007BFF;
         }
 
-        /* Logo */
-        .logo {
+        /* Styles for the logo within nav-item */
+        .general-site-navbar .nav-list .nav-item .logo {
             height: 4vh;
             width: 6vh;
             vertical-align: middle;
@@ -50,8 +51,8 @@
             margin-left: 1vw;
         }
 
-        /* User Icon */
-        .user-icon {
+        /* Styles for the user-icon within nav-list */
+        .general-site-navbar .nav-list .user-icon {
             list-style-type: none;
             position: absolute;
             right: 2%;
@@ -59,31 +60,34 @@
             align-items: center;
         }
 
-        .user-icon-item {
+        /* Styles for the user-icon-item within user-icon */
+        .general-site-navbar .nav-list .user-icon .user-icon-item {
             margin-right: 2%;
         }
 
-        /* User Icon Image */
-        .user {
+        /* Styles for the user within user-icon-item */
+        .general-site-navbar .nav-list .user-icon .user-icon-item .user {
             width: 3vh;
             max-width: 100px;
             vertical-align: middle;
         }
 
-        /* Input Group */
-        .input-group {
+        /* Styles for the input-group within nav-item */
+        .general-site-navbar .nav-list .nav-item .input-group {
             position: relative;
             display: inline-block;
         }
 
-        .search-input {
+        /* Styles for the search-input within input-group */
+        .general-site-navbar .nav-list .nav-item .input-group .search-input {
             text-decoration: none;
             font-weight: bold;
             font-size: 2vh;
             padding: 1vh 2vh;
         }
 
-        #search-tooltip {
+        /* Styles for the search-tooltip */
+        .general-site-navbar #search-tooltip {
             display: none;
             position: absolute;
             top: 100%;
@@ -96,18 +100,17 @@
             white-space: nowrap;
         }
 
-        #search:focus + #search-tooltip {
+        .general-site-navbar #search:focus + .general-site-navbar #search-tooltip {
             display: block;
         }
 
-        #search:valid + #search-tooltip {
+        .general-site-navbar #search:valid + .general-site-navbar #search-tooltip {
             display: none;
         }
     </style>
 </head>
-
 <body>
-    <nav class="navbar">
+    <nav class="general-site-navbar">
         <ul class="nav-list">
             <li class="nav-item"><a href="/"><img src="{{ asset('images/logo(2).png') }}" alt="/" class="logo" href="/"></a></li>
             <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
@@ -116,33 +119,40 @@
                 <form action="/search" method="POST" role="search">
                     {{ csrf_field() }}
                     <div class="input-group">
-                        <input type="text" class="search-input" name="q" id="search" placeholder="Search users">
+                        <input type="text" class="search-input" name="q" id="search" placeholder="Search books">
                         <div class="tooltip" id="search-tooltip">Search must be longer than 2 characters</div>
                     </div>
                 </form>
             </li>
             <ul class="user-icon">
+                <li><a href="/user">Login</a></li>
+                <li><a href="/user">Register</a></li>
                 <li class="user-icon-item"><a href="/user"><img src="{{ asset('images/user.png') }}" alt="" class="user"></a></li>
             </ul>
         </ul>
     </nav>
 </body>
 </html>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
 $(document).ready(function() {
     $('#search-tooltip').hide(); // Initially hide the tooltip
 
-    $('#search').on('keydown', function(e) {
+    $('#search').on('input', function() {
+
+        $('body').on('keydown', '#search', function(e) {
         if (e.key === 'Enter') {
-            if ($('#search').val().length <= 2) {
-                $('#search-tooltip').fadeIn(400); // Show the tooltip with a fade-in animation
-                e.preventDefault(); // Prevent form submission (Enter key) if the search is too short
-                setTimeout(function() {
-                    $('#search-tooltip').fadeOut(400); // Fade out the tooltip after a delay
-                }, 2000); // Adjust the delay (in milliseconds) as needed
-            }
+            if ($(this).val().length <= 2) {
+                e.preventDefault();
+        } else {
+            $('#search-tooltip').fadeOut(400); // Hide the tooltip
+        }
         }
     });
+        
+    });
 });
-</script> 
+</script>
+
