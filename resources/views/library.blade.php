@@ -12,6 +12,7 @@
     <x-tabchanger />
     <!-- Favorites Tab Content -->
     <div class="favorites-container" id="favorites-content">
+        <h2>Library:</h2>
         <x-booksPreview :books="$books"/>
 
     </div>

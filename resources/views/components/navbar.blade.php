@@ -131,7 +131,7 @@
             <li class="nav-item"><a href="/library" class="nav-link">Library</a></li>
             <li class="nav-item">
                 <form action="/search" method="POST" role="search">
-                    {{ csrf_field() }}
+                    @csrf
                     <div class="input-group">
                         <input type="text" class="search-input" name="q" id="search" placeholder="Search books">
                         <div class="tooltip" id="search-tooltip">Search must be longer than 2 characters</div>

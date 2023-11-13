@@ -1,6 +1,7 @@
 @props(['chapters','chapter','prev','next',"indexes"])
 
 <x-navbar />
+<title>Chapter Reader</title>
 
 <html>
 <head>

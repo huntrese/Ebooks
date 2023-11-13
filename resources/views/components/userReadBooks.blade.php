@@ -49,11 +49,25 @@
 
     @media screen and (max-width: 767px) {
         .carousel {
-            grid-template-columns: repeat(auto-fit, minmax(calc(25% - 20px), 1fr));
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .book {
+            flex: 0 0 calc(25% - 20px);
         }
 
         .book-title {
-            font-size: 14px;
+            font-size: 12px; /* Adjust the font size for smaller screens */
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .carousel {
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        .book {
+            flex: 0 0 calc(12.5% - 20px);
         }
     }
 </style>

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Books;
@@ -7,6 +6,7 @@ use App\Models\Authors;
 use App\Models\Chapters;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -24,14 +24,16 @@ class BookController extends Controller
             return response()->json(['error' => 'Book not found'], 404);
         }
     
-        $author = Authors::find($book->author_ID);
+        $author = $book->author;
     
         // Retrieve the chapters and sort them numerically
-        $chapters = Chapters::where('book_ID', $book_id)
-            ->get();
-    
-        return view('book', compact('book', 'author', 'chapters'));
+        $chapters = $book->chapters;
+
+        // Check if the book is in the user's library
+        $user = Auth::user();
+        $library = $user->library;
+        $isInLibrary = $library->contains($book);
+
+        return view('book', compact('book', 'author', 'chapters', 'isInLibrary'));
     }
-    
-    
 }

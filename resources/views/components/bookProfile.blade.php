@@ -118,6 +118,31 @@
             padding-bottom: 8vh;
         }
     }
+    /* Add this to your existing CSS code */
+/* Add this to your existing CSS code */
+/* Add this to your existing CSS code */
+.button-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.read-button,
+.add-to-library-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+
+
+
     </STYle>
 
 <body>
@@ -130,6 +155,27 @@
                 <h1 class="book-title">{{ $book->name }}</h1>
                 <p class="author-name">{{ $author->name }}</p>
                 <p class="book-description"><html>{{ $book->description }}</html></p>
+                <!-- Add this to your book view file -->
+<div class="button-container">
+<!-- Update the "Read" button to use a form -->
+<form action="{{ route('read.book', ['book_id' => $book->book_ID]) }}" method="POST">
+    @csrf
+    <input type="hidden" name="chapter" value="{{ $chapterNumbers[$book->book_ID] ?? 1 }}">
+    <button type="submit" class="read-button">Read</button>
+</form>
+    @if (!$isInLibrary)
+        <button class="add-to-library-button">Already In Library</button>
+
+    @else
+    <form action="{{ route('add.to.library') }}" method="POST">
+        @csrf
+        <input type="hidden" name="book_id" value="{{ $book->book_ID }}">
+        <button type="submit" class="add-to-library-button">Add to Library</button>
+    </form>
+    @endif
+    
+</div>
+
             </div>
         </div>
     </div>
