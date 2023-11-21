@@ -31,9 +31,13 @@ class BookController extends Controller
 
         // Check if the book is in the user's library
         $user = Auth::user();
-        $library = $user->library;
-        $isInLibrary = $library->contains($book);
-
+        if ($user){
+            $library = $user->library;
+            $bookIDs = $library->pluck('book_ID')->toArray();
+            $isInLibrary = in_array($book_id, $bookIDs);   
+        } else {
+            $isInLibrary = false;
+        }
         return view('book', compact('book', 'author', 'chapters', 'isInLibrary'));
     }
 }

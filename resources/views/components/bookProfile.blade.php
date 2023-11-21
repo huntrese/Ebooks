@@ -118,9 +118,7 @@
             padding-bottom: 8vh;
         }
     }
-    /* Add this to your existing CSS code */
-/* Add this to your existing CSS code */
-/* Add this to your existing CSS code */
+
 .button-container {
     display: flex;
     justify-content: space-evenly;
@@ -163,13 +161,13 @@
     <input type="hidden" name="chapter" value="{{ $chapterNumbers[$book->book_ID] ?? 1 }}">
     <button type="submit" class="read-button">Read</button>
 </form>
-    @if (!$isInLibrary)
+    @if ($isInLibrary)
         <button class="add-to-library-button">Already In Library</button>
 
     @else
-    <form action="{{ route('add.to.library') }}" method="POST">
+    <form action="{{ route('add.to.library',$book->book_ID) }}" method="POST">
         @csrf
-        <input type="hidden" name="book_id" value="{{ $book->book_ID }}">
+        <input type="hidden" name="book_ID" value="{{ $book->book_ID }}">
         <button type="submit" class="add-to-library-button">Add to Library</button>
     </form>
     @endif

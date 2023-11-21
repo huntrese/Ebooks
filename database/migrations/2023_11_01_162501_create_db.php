@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('user_ID');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->timestamps(); // Add this line if you want to enable timestamps
-        });
+       DB::unprepared(
+        file_get_contents(__DIR__."")
+       );
     }
-    
 
     /**
      * Reverse the migrations.

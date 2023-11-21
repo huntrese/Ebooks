@@ -13,7 +13,7 @@ class Users extends Authenticatable
 
     protected $table = 'users';
     protected $primaryKey = 'user_ID';
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password','description','avatar'];
     public $timestamps = false;
 
     public function library(): HasMany

@@ -12,7 +12,7 @@ class RecentController extends Controller
     public function recent()
     {
         $user = Auth::user();
-        $recentBooks = $user->recent()->orderBy('updated_at', 'desc')->get();//TODO ORDER properly
+        $recentBooks = $user->recent()->orderBy('updated_at', 'desc')->get();
         // Create an array to store chapter numbers for recent books
         $chapterNumbers = [];
     
