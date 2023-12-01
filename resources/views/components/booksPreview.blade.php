@@ -1,87 +1,17 @@
 @props(['books'])
 
+<head>
+    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" type="text/css">
 
-<style>
-    .carousel {
-        display: grid;
-        grid-template-columns: repeat(16, minmax(calc(16.6667% - 20px), 1fr));
-        background-color: #f0f7fa;
-        grid-gap: 10px;
-        width: 98%;
-        margin: 0 auto;
-        padding: 2vh;
-    }
-
-    .book {
-        flex: 0 0 calc(16.6667% - 20px);
-        background-color: #f5f5f5;
-        border-radius: 10px;
-        text-align: center;
-        box-sizing: border-box;
-        transition: transform 0.3s ease;
-        overflow: hidden;
-        margin-bottom: 2vh; /* Add space below each book */
-        opacity: 1;
-        transition: opacity 0.3s ease;
-    }
-
-    .book-image {
-        max-width: 100%;
-        height: auto;
-        margin-bottom: 10px;
-    }
-
-    .book-title {
-        font-size: 14px;
-        white-space: normal;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-    }
-
-    .book-link {
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .book:empty {
-        opacity: 0;
-    }
-
-    @media screen and (max-width: 767px) {
-        .carousel {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        .book {
-            flex: 0 0 calc(25% - 20px);
-        }
-
-        .book-title {
-            font-size: 12px; /* Adjust the font size for smaller screens */
-        }
-    }
-
-    @media screen and (min-width: 768px) {
-        .carousel {
-            grid-template-columns: repeat(6, 1fr);
-        }
-
-        .book {
-            flex: 0 0 calc(12.5% - 20px);
-        }
-    }
-</style>
+</head>
 <div class="carousel">
     <?php $bookCount = 0; // Initialize a counter for the number of books displayed ?>
     <?php foreach ($books as $book) : ?>
         <?php if ($bookCount >= 12) break; // Check if we've reached the maximum number of books ?>
-        <div class="book">
-            <a href="/books/{{$book->book_ID}}" class="book-link">
-                <img src="{{ asset(''.$book->image_path) }}" alt="Book Cover" class="book-image">
-                <h2 class="book-title">{{ $book->name }}</h2>
+        <div class="preview-book">
+            <a href="/books/{{$book->book_ID}}" class="preview-book-link">
+                <img src="{{ asset(''.$book->image_path) }}" alt="Book Cover" class="preview-book-image">
+                <h2 class="preview-book-title">{{ $book->name }}</h2>
             </a>
         </div>
         <?php $bookCount++; // Increment the book count ?>

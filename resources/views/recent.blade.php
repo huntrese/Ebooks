@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    <title>My Favorites</title>
+    <title>My Recents</title>
 
 </head>
 <x-navbar />
@@ -12,7 +12,9 @@
     <x-tabchanger />
     <!-- Favorites Tab Content -->
     <div class="favorites-container" id="favorites-content">
-        <x-userReadBooks :books="$books" :chapterNumbers="$chapterNumbers"/>
+    <h2>Recent:</h2>
+
+        <x-userReadBooks :recentBooks="$recentBooks"/>
 
     </div>
 

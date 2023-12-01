@@ -9,29 +9,37 @@ use App\Models\Chapters;
 use App\Models\Library;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Session;
 class LibraryController extends Controller
 {
     public function library()
 {
-
     $user = Auth::user();
-    if(Auth::check()){
-        $userBookIDs = Library::where('user_ID', Auth::user()->user_ID)->pluck('book_ID')->toArray();
+    // Get all book objects for the user
+    $books = $user->booksInLibrary;
+    return view('library', compact('books'));
 
-        // Count the number of book IDs
-        $count = count($userBookIDs);
-
-        // Get all book objects for the user
-        $books = Books::whereIn('book_ID', $userBookIDs)->get();
-
-        // Output the count
-
-
-        return view('library', compact('books'));
-
-    } else{
-        return view('please_login');
-    }
+    
 }
+public function addToLibrary(Request $request)
+    {
+        
+        $book_id = $request->input('book_ID');
+
+        $user = Auth::user();
+        // Check if the book is already in the user's library
+        $library = $user->library;
+        $bookIDs = $library->pluck('book_ID')->toArray();
+        $isInLibrary = in_array($book_id, $bookIDs);   
+        if (!$isInLibrary) {
+            // Add the book to the user's library
+            Library::create([
+                'user_ID' => $user->user_ID,
+                'book_ID' => $book_id,
+            ]);
+        } 
+
+        return redirect()->back();
+       
+    }
 }

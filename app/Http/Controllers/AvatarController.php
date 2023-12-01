@@ -11,48 +11,37 @@ class AvatarController extends Controller
     public function profile()
     {
         // Retrieve the currently authenticated user
-        $user = Auth::user();
-        if(Auth::check()){
-            $account = Account::find($user->user_ID);
-            return view('userprofile', compact('account'));
+        
+        $account = Auth::user();;
+        return view('userprofile', compact('account'));
 
-        } else{
-            return view('please_login');
+       
+    }
+    public function update(Request $request)
+    {
+        // Retrieve the currently authenticated user
+        $account = Auth::user();
+        
+        $account->name = $request->input('name');
+        $account->email = $request->input('email');
+        $account->description = $request->input('description');
+        
+        // Check if a file was uploaded
+        if ($request->hasFile('avatar')) {
+            
+            $avatar = $request->file('avatar');
+            
+            $fileName =  $avatar->getClientOriginalName();
+            
+            // Store the file in the 'avatars' directory within the storage folder
+            $filePath = $request->file('avatar')->storeAs('avatars', $fileName);
+            
+            // Set the avatar field in the database to the file path
+            $account->avatar = $filePath;
         }
-}
-
-    // app/Http/Controllers/AccountController.php
-
-
-// ...
-
-public function updateAvatar(Request $request)
-{
-    // Validate and save the new profile picture (avatar)
-    $request->validate([
-        'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Example validation rules
-    ]);
-    $user = Auth::user();
-
-    Account::find($user->user_ID)->avatar = $request->avatar;
     
-    Account::find($user->user_ID)->save();
-
-    return response()->json(['message' => 'Avatar updated successfully']);
-}
-
-public function updateDescription(Request $request)
-{
-    // Validate and save the new description
-    $request->validate([
-        'description' => 'required|string|max:255', // Example validation rules
-    ]);
-
-    $user = Auth::user();
-    Account::find($user->user_ID)->description = $request->description;
+        $account->save();
     
-    Account::find($user->user_ID)->save();
-    return response()->json(['message' => 'Description updated successfully']);
-}
-
+        return view('userprofile', compact('account'));
+    }
 }
