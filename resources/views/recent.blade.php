@@ -14,7 +14,7 @@
     <div class="favorites-container" id="favorites-content">
     <h2>Recent:</h2>
 
-        <x-userReadBooks :books="$books" :chapterNumbers="$chapterNumbers"/>
+        <x-userReadBooks :recentBooks="$recentBooks"/>
 
     </div>
 

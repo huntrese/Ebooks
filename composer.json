@@ -15,6 +15,7 @@
         "phpmyadmin/phpmyadmin": "^4.9"
     },
     "require-dev": {
+        "bennett-treptow/laravel-migration-generator": "^4.3",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",

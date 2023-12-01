@@ -18,11 +18,9 @@ class BookController extends Controller
 
     public function show($book_id)
     {
-        $book = Books::find($book_id);
+        $book = Books::findOrFail($book_id);
     
-        if (!$book) {
-            return response()->json(['error' => 'Book not found'], 404);
-        }
+
     
         $author = $book->author;
     

@@ -13,48 +13,53 @@ class ChapterController extends Controller
 {
     public function find(int $book_id, $chapter_no)
     {
-        $user = Auth::user();
-        $user_id = optional($user)->user_ID;
-    
-        // Update recent entry if user is logged in
-        if ($user_id) {
-            $recent = $user->recent()->where("user_id", $user_id)->first();
-    
-            if ($recent === null) {
-                Recent::create([
-                    'book_id' => $book_id,
-                    'user_id' => $user_id,
-                    'chapter' => $chapter_no,
-                ]);
-            } elseif ($recent->chapter != $chapter_no) {
-                Recent::where('user_id', $user_id)
-                    ->where('book_id', $book_id)
+        $book = Books::findOrFail($book_id);
+        $chapters = $book->chapters;
+        $indexes = range(0, count($chapters) - 1);
+        $chapter=$chapters->first();
+        $prev=0;
+        $next=2;
+
+        if(!Auth::check()){
+            return view("chapter", compact('chapters', 'chapter', 'prev', 'next', 'indexes'));
+        }
+
+        $user_id = Auth::user()->user_ID;
+        $recent = Recent::where('book_id', $book_id)
+            ->where('user_id', $user_id)
+            ->first();
+        
+        if ($recent === null) {
+            // The book is not in the recent list, so create a new entry with the chapter.
+            Recent::create([
+                'book_id' => $book_id,
+                'user_id' => $user_id,
+                'chapter' => $chapter_no,
+            ]);
+        } else {
+            // The book is already in the recent list.
+            if ($recent->chapter != $chapter_no) {
+                // Use the update method to update the chapter.
+                Recent::where('user_ID', $user_id)
+                    ->where('book_id', $book_id) // Add this condition to restrict the update to the specific book
                     ->update(['chapter' => $chapter_no]);
             }
-        }
+        }        
+        
     
-        $book = Books::find($book_id);
-    
-        if (!$book) {
-            return response()->json(['error' => 'Book not found'], 404);
-        }
-    
-        $chapters = $book->chapters;
+
     
         $chapter = $chapters
             ->skip($user_id ? $chapter_no - 1 : 0)
             ->take(1)
-            ->first();
+            ->firstOrFail();
     
-        if (!$chapter) {
-            return response()->json(['error' => 'Chapter not found'], 404);
-        }
+
     
         // Calculate previous and next chapter numbers
         $prev = ($chapter_no != 1) ? $chapter_no - 1 : -1;
         $next = ($chapters->count() > $chapter_no) ? $chapter_no + 1 : -1;
     
-        $indexes = range(0, count($chapters) - 1);
     
         return view("chapter", compact('chapters', 'chapter', 'prev', 'next', 'indexes'));
     }
@@ -70,13 +75,20 @@ public function read($book_id, $chapter = 1)
         $isInRecent = $recentBook !== null;
         // Retrieve the chapter from the recent book entry
         $chapter = $isInRecent ? $recentBook->chapter : 1;    
+    
+        if (!$isInRecent){
+            Recent::create([
+                'user_id' => $user->user_ID,
+                'book_id' => $book_id,
+                'chapter_id' => 1
+            ]);
+        }
     }
     
 
     
     // Logic to determine the URL for reading
-    $url = "books/$book_id/$chapter";
-    return redirect($url);
+    return to_route("read.book.chapters",["book_id"=>$book_id,"chapter_no"=>$chapter]);
     
 }
 

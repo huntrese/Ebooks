@@ -9,14 +9,9 @@ class AuthorController extends Controller
 {
     public function show($author_id)
     {
-        $author = Authors::find($author_id);
-    
-        if (!$author) {
-            return response()->json(['error' => 'Author not found'], 404);
-        }
-    
+        $author = Authors::findOrFail($author_id);    
         $books =$author->books;
     
-        return view('Author', compact('author', 'books'));
+        return view('author', compact('author', 'books'));
     }
 }
