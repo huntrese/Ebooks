@@ -4,126 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
+    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" type="text/css">
 
-        /* Profile Container Styles */
-        #profile-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #f7f7f7;
-            padding: 20px;
-            margin-top: 10vh;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        /* Profile Picture Styles */
-        #profile-picture {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 20px;
-            border: 4px solid #fff;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Nickname Styles */
-        #nickname {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        /* Description Styles */
-        #description {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        /* Settings Button Styles */
-        #settings-button {
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 100;
-        }
-
-        /* Modal Content Styles */
-        #modal-content {
-            background-color: #fff;
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-
-        /* Close Button Styles */
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        /* Settings Label Styles */
-        .settings-label {
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-align: left;
-        }
-
-        /* Settings Option Styles */
-        .settings-option {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-/* Unified Button Styles */
-.settings-button, .clear-favorites-button, .logout-button {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 15px;
-}
-
-/* Red Hue for Log Out Button */
-.logout-button {
-    background-color: #FF0000;
-}
-
-    </style>
 </head>
 
 <x-navbar />
 
 <body>
     <div id="profile-container">
+        <div id="nickname">{{$account->name }}</div>
         <img src="{{$account->avatar}}" alt="Profile Picture" id="profile-picture">
-        <div id="nickname">{{$account->nickname}}</div>
         <div id="description">
           {{ $account->description}}
         </div>
@@ -170,23 +60,50 @@
             document.getElementById('settingsModal').style.display = 'block';
         }
 
-        const uploadButton = document.querySelector(".settings-button");
+
+const uploadButton = document.querySelector(".settings-button"); // Select the button for uploading a new picture
 
 uploadButton.addEventListener("click", () => {
-    // Create an input element to select a file
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.accept = 'image/*';
-    fileInput.addEventListener('change', (event) => {
+    fileInput.addEventListener('change', async (event) => {
         const selectedFile = event.target.files[0];
         if (selectedFile) {
-            // Send the file to the server for processing using AJAX or fetch
-            // You'll need a server-side endpoint to handle the file upload
-            alert(`Uploading file: ${selectedFile.name}`);
+            try {
+                const formData = new FormData();
+                formData.append('avatar', selectedFile);
+
+                // Include CSRF token in the headers
+                const headers = new Headers();
+                headers.append('X-CSRF-TOKEN', '{{ csrf_token() }}');
+
+                // Send the file to the server for processing using Fetch API
+                const response = await fetch('/update-profile', {
+                    method: 'POST',
+                    body: formData,
+                    headers: headers // Include headers containing CSRF token
+                });
+
+                if (response.ok) {
+                    // File uploaded successfully
+                    const responseData = await response.json();
+                    alert(`File uploaded successfully: ${responseData.message}`);
+                    // Update the profile picture or perform other actions as needed
+                    document.getElementById('profile-picture').src = responseData.avatarUrl;
+                } else {
+                    // Handle error if file upload fails
+                    throw new Error('File upload failed');
+                }
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                alert('File upload failed. Please try again.');
+            }
         }
     });
     fileInput.click(); // Trigger the file input dialog
 });
+
 const editDescriptionButton = document.querySelector(".settings-button");
 
 editDescriptionButton.addEventListener("click", () => {

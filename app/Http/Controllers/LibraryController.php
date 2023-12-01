@@ -25,14 +25,13 @@ public function addToLibrary(Request $request)
     {
         
         $book_id = $request->input('book_ID');
-        // dd($book_ID);
 
         $user = Auth::user();
         // Check if the book is already in the user's library
         $library = $user->library;
         $bookIDs = $library->pluck('book_ID')->toArray();
         $isInLibrary = in_array($book_id, $bookIDs);   
-        if ($isInLibrary) {
+        if (!$isInLibrary) {
             // Add the book to the user's library
             Library::create([
                 'user_ID' => $user->user_ID,

@@ -16,7 +16,7 @@ Route::post('/books/{book_id}', [ChapterController::class, 'read'])->name('read.
 
 Route::get('/author/{author_id}', [AuthorController::class, 'show']);
 
-Route::get('/books/{book_id}/{chapter_no}', [ChapterController::class, 'find']);
+Route::get('/books/{book_id}/{chapter_no}', [ChapterController::class, 'find'])->name('read.book.chapters');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/library', [LibraryController::class, 'library']);
