@@ -14,9 +14,9 @@
     <ul>
         <div class="books-content">
             @if(isset($books))
-            @foreach($books as $book)
+            @foreach($books as $book)   
             <div class="book-card">
-                <a href="{{url('books/' . $book->book_ID)}}" class="book-link">
+                <a href="{{ route('read.book', ['book_id' => $book->book_ID]) }}" class="book-link">
                     
                     <div class="book-image">
                         <img src="{{ asset($book->image_path) }}" alt="Book Cover">
