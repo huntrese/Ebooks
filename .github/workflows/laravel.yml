@@ -17,7 +17,7 @@ jobs:
         php-version: '8.1'
     - uses: actions/checkout@v3
       with:
-        path: /var/www/myapp
+        path:
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
@@ -36,5 +36,7 @@ jobs:
         DB_PASSWORD: secrets.DB_PASSWORD
     - name: start app
       run: |
-        sudo php artisan serve &
+        sudo cp -r /home/ubuntu/actions-runner/_work/Ebooks/Ebooks/. /var/www/myapp
+        cd /var/www/myapp && sudo php artisan serve &
+
      
