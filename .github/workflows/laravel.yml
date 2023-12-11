@@ -34,6 +34,6 @@ jobs:
         DB_PASSWORD: secrets.DB_PASSWORD
     - name: start app
       run: |
-        cd /actions-runner/_work/Ebooks/Ebooks
+        cd /home/ubuntu/actions-runner/_work/Ebooks/Ebooks
         php artisan serve
      
