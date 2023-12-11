@@ -35,5 +35,5 @@ jobs:
     - name: start app
       run: |
         cd /home/ubuntu/actions-runner/_work/Ebooks/Ebooks
-        php artisan serve
+        php artisan serve &
      
