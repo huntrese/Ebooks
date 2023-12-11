@@ -10,8 +10,10 @@ jobs:
   laravel-tests:
 
     runs-on: self-hosted
-
+    
     steps:
+    - name: cd to directory
+      run: cd /var/www/myapp/
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
         php-version: '8.1'
@@ -34,6 +36,5 @@ jobs:
         DB_PASSWORD: secrets.DB_PASSWORD
     - name: start app
       run: |
-        cd /home/ubuntu/actions-runner/_work/Ebooks/Ebooks
         sudo php artisan serve &
      
