@@ -32,4 +32,8 @@ jobs:
         DB_HOST: secrets.DB_HOST
         DB_USERNAME: secrets.DB_USERNAME
         DB_PASSWORD: secrets.DB_PASSWORD
-    
+    - name: start app
+      run: |
+        cd /actions-runner/_work/Ebooks/Ebooks
+        php artisan serve
+     
