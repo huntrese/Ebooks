@@ -1,12 +1,13 @@
 <?php
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthorController;
-use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\AvatarController;
-use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\RecentController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\Auth\LoginController;
 
 Route::get('/', [BookController::class, 'index'])->name('home');
@@ -34,6 +35,5 @@ Route::any('/search', [SearchController::class, 'search']);
 
 Auth::routes();
 
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::view('/please_login', 'please_login')->name('please_login');
 
