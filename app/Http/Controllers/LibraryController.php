@@ -24,18 +24,18 @@ class LibraryController extends Controller
 public function addToLibrary(Request $request)
     {
         
-        $book_id = $request->input('book_ID');
+        $book_id = $request->input('book_id');
 
         $user = Auth::user();
         // Check if the book is already in the user's library
         $library = $user->library;
-        $bookIDs = $library->pluck('book_ID')->toArray();
+        $bookIDs = $library->pluck('book_id')->toArray();
         $isInLibrary = in_array($book_id, $bookIDs);   
         if (!$isInLibrary) {
             // Add the book to the user's library
             Library::create([
-                'user_ID' => $user->user_ID,
-                'book_ID' => $book_id,
+                'user_id' => $user->user_id,
+                'book_id' => $book_id,
             ]);
         } 
 

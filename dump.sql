@@ -28,7 +28,7 @@ CREATE TABLE `account` (
   `description` tinytext,
   `nickname` varchar(45) DEFAULT NULL,
   KEY `account_users_user_ID_fk` (`account_ID`),
-  CONSTRAINT `account_users_user_ID_fk` FOREIGN KEY (`account_ID`) REFERENCES `users` (`user_ID`)
+  CONSTRAINT `account_users_user_ID_fk` FOREIGN KEY (`account_ID`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -188,12 +188,12 @@ DROP TABLE IF EXISTS `library`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `library` (
-  `user_ID` int NOT NULL,
+  `user_id` int NOT NULL,
   `book_ID` int NOT NULL,
   KEY `library_book_ID` (`book_ID`),
-  KEY `library_users_user_ID_fk` (`user_ID`),
+  KEY `library_users_user_ID_fk` (`user_id`),
   CONSTRAINT `library_book_ID` FOREIGN KEY (`book_ID`) REFERENCES `books` (`book_ID`),
-  CONSTRAINT `library_users_user_ID_fk` FOREIGN KEY (`user_ID`) REFERENCES `users` (`user_ID`)
+  CONSTRAINT `library_users_user_ID_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -322,14 +322,14 @@ DROP TABLE IF EXISTS `recent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `recent` (
-  `user_ID` int DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
   `book_ID` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `chapter` int DEFAULT NULL,
-  KEY `recent_users_user_ID_fk` (`user_ID`),
-  CONSTRAINT `recent_books_book_ID_fk` FOREIGN KEY (`user_ID`) REFERENCES `books` (`book_ID`),
-  CONSTRAINT `recent_users_user_ID_fk` FOREIGN KEY (`user_ID`) REFERENCES `users` (`user_ID`)
+  KEY `recent_users_user_ID_fk` (`user_id`),
+  CONSTRAINT `recent_books_book_ID_fk` FOREIGN KEY (`user_id`) REFERENCES `books` (`book_ID`),
+  CONSTRAINT `recent_users_user_ID_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -375,7 +375,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `user_ID` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -383,7 +383,7 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `avatar` longblob,
   `description` tinytext COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`user_ID`),
+  PRIMARY KEY (`user_id`),
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

@@ -20,7 +20,7 @@ class readRecent
         
         $book_id = $event->book_id;
         $chapter_no = $event->chapter_no;
-        $user_id = Auth::user()->user_ID;
+        $user_id = Auth::user()->user_id;
         $recent = Recent::where('book_id', $book_id)
             ->where('user_id', $user_id)
             ->first();
@@ -36,7 +36,7 @@ class readRecent
             // The book is already in the recent list.
             if ($recent->chapter != $chapter_no) {
                 // Use the update method to update the chapter.
-                Recent::where('user_ID', $user_id)
+                Recent::where('user_id', $user_id)
                     ->where('book_id', $book_id) // Add this condition to restrict the update to the specific book
                     ->update(['chapter' => $chapter_no]);
             }

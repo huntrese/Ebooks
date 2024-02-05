@@ -9,13 +9,13 @@ class Authors extends Model
     use HasFactory;
 
     protected $table = 'author';
-    protected $primaryKey = 'author_ID';
+    protected $primaryKey = 'author_id';
     protected $fillable = ['name'];
     
 
     // Define the inverse (one-to-many) relationship to Books
     public function books()
     {
-        return $this->hasMany(Books::class, 'author_ID');
+        return $this->hasMany(Books::class, 'author_id');
     }
 }

@@ -14,11 +14,11 @@ class CreateLibraryTable extends Migration
     public function up()
     {
         Schema::create('library', function (Blueprint $table) {
-            $table->integer('user_ID');
+            $table->integer('user_id');
             $table->integer('book_ID');
             
             $table->foreign('book_ID', 'library_book_ID')->references('book_ID')->on('books');
-            $table->foreign('user_ID', 'library_users_user_ID_fk')->references('user_ID')->on('users');
+            $table->foreign('user_id', 'library_users_user_ID_fk')->references('user_id')->on('users');
         });
     }
 

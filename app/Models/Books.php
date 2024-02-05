@@ -13,20 +13,20 @@ class Books extends Model
     use HasFactory;
 
     protected $table = 'books';
-    protected $primaryKey = 'book_ID';
-    protected $fillable = ['name', 'author_ID', 'description', 'image_path'];
+    protected $primaryKey = 'book_id';
+    protected $fillable = ['name', 'author_id', 'description', 'image_path'];
 
 
     // Define the relationship to Author
     public function author(): BelongsTo
     {
-        return $this->belongsTo(Authors::class, 'author_ID');
+        return $this->belongsTo(Authors::class, 'author_id');
     }
 
     // Define the one-to-many relationship to Chapters
     public function chapters(): HasMany
     {
-        return $this->hasMany(Chapters::class, 'book_ID');
+        return $this->hasMany(Chapters::class, 'book_id');
     }
 
 }

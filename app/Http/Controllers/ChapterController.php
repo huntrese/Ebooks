@@ -27,11 +27,8 @@ class ChapterController extends Controller
 
         readBook::dispatch($book_id,$chapter_no);
         
-    
-
-    
         $chapter = $chapters
-            ->skip(Auth::user()->user_ID ? $chapter_no - 1 : 0)
+            ->skip(Auth::user()->user_id ? $chapter_no - 1 : 0)
             ->take(1)
             ->firstOrFail();
     
@@ -45,19 +42,18 @@ class ChapterController extends Controller
         return view("chapter", compact('chapters', 'chapter', 'prev', 'next', 'indexes'));
     }
     
-public function read($book_id, $chapter = 1)
-{
+public function read($book_id, $chapter = 1){
     if (Auth::check()) 
         $user = Auth::user();
-        $recentBook = $user->recent()->where('book_ID', $book_id)->first();
+        $recentBook = $user->recent()->where('book_id', $book_id)->first();
         // Check if a recent book entry exists
         $isInRecent = $recentBook !== null;
         // Retrieve the chapter from the recent book entry
-        $chapter = $isInRecent ? $recentBook->chapter : 1;    
+        $chapter = $isInRecent ? $recentBook->chapter:1;    
     
         if (!$isInRecent){
             Recent::create([
-                'user_id' => $user->user_ID,
+                'user_id' => $user->user_id,
                 'book_id' => $book_id,
                 'chapter_id' => 1
             ]);

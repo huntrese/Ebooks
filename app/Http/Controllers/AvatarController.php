@@ -44,7 +44,7 @@ class AvatarController extends Controller
         if($request->has("clearRecent")){
             $user = Auth::user();
             
-            Recent::where('user_ID', $user->id)->delete();
+            Recent::where('user_id', $user->id)->delete();
             return back()->with("success","successfully removed recents");
         }
         $account->save();

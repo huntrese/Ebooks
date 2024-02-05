@@ -15,7 +15,7 @@ class RecentController extends Controller
 
     $recentBooks = $user->recent()
         ->orderBy('recent.updated_at', 'desc')
-        ->join('books', 'books.book_id', '=', 'recent.book_ID')
+        ->join('books', 'books.book_id', '=', 'recent.book_id')
         ->get();
     return view('recent', compact('recentBooks'));
 }

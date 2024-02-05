@@ -14,13 +14,13 @@ class CreateRecentTable extends Migration
     public function up()
     {
         Schema::create('recent', function (Blueprint $table) {
-            $table->integer('user_ID')->nullable();
+            $table->integer('user_id')->nullable();
             $table->integer('book_ID')->nullable();
             $table->timestamps();
             $table->integer('chapter')->nullable();
             
-            $table->foreign('user_ID', 'recent_books_book_ID_fk')->references('book_ID')->on('books');
-            $table->foreign('user_ID', 'recent_users_user_ID_fk')->references('user_ID')->on('users');
+            $table->foreign('user_id', 'recent_books_book_ID_fk')->references('book_ID')->on('books');
+            $table->foreign('user_id', 'recent_users_user_ID_fk')->references('user_id')->on('users');
         });
     }
 

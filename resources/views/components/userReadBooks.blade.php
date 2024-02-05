@@ -11,7 +11,7 @@
 
     <?php foreach ($recentBooks as $book) : ?>
         <div class="book">
-            <a href="/books/{{$book->book_ID}}/{{$book->chapter}}" class="book-link">
+            <a href="/books/{{$book->book_id}}/{{$book->chapter}}" class="book-link">
                 <img src="{{ asset(''.$book->image_path) }}" alt="Book Cover" class="book-image">
                 <h2 class="book-title">{{ $book->name }}</h2>
             </a>
