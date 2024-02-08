@@ -27,10 +27,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/user', [AvatarController::class, 'profile']);
 
-    Route::post('/update-profile',[AvatarController::class,'update'])->name('update');
+    Route::post('/update-avatar',[AvatarController::class,'updateAvatar'])->name('update.avatar');
+    Route::post('/update-description',[AvatarController::class,'updateDescription'])->name('update.description');
+    Route::post('/clear-recents',[AvatarController::class,'clearRecents'])->name('clear.recents');
 });
 
-Route::any('/search', [SearchController::class, 'search']);
+Route::any('/search', [SearchController::class, 'search'])->name('search');
 
 
 Auth::routes();

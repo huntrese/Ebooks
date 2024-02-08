@@ -31,7 +31,7 @@
                     Upload a new Avatar
                 </h3>
                 <div class="settings-button">
-                    <form action="/update-profile" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('update.avatar')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div>
                             
@@ -51,7 +51,7 @@
                     <div id="modal-content">
                         <span class="close-button" onclick="closeModal('descriptionModal')">&#10006;</span>
                         <h2 class="text-center mb-3">New Description:</h2>
-                        <form action="/update-profile" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('update.description')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <textarea name="description" id="description" cols="30" rows="10"></textarea>
                             <button type="submit">Save</button>
@@ -62,10 +62,10 @@
 
 
             <div class="settings-option">
-                <form action="/update-profile" method="POST">
+                <form action="{{route('clear.recents')}}" method="POST">
                     @csrf
-                    <input type="hidden" name="clearFavorites" value="true">
-                    <button type="submit" class="clear-favorites-button">Clear Recents</button>
+                    <input type="hidden" name="clearRecent" value="true">
+                    <button type="submit" class="clear-recents-button">Clear Recents</button>
                 </form>
             </div>
 
