@@ -31,7 +31,7 @@ class BookController extends Controller
         $user = Auth::user();
         if ($user){
             $library = $user->library;
-            $bookIDs = $library->pluck('book_ID')->toArray();
+            $bookIDs = $library->pluck('book_id')->toArray();
             $isInLibrary = in_array($book_id, $bookIDs);   
         } else {
             $isInLibrary = false;

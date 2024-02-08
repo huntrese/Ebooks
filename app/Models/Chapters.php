@@ -11,13 +11,13 @@ class Chapters extends Model
     use HasFactory;
 
     protected $table = 'chapters';
-    protected $primaryKey = 'chapter_ID';
-    protected $fillable = ['book_ID', 'chapter_name', 'chapter'];
+    protected $primaryKey = 'chapter_id';
+    protected $fillable = ['book_id', 'chapter_name', 'chapter'];
 
 
     // Define the relationship to Book
     public function book()
     {
-        return $this->belongsTo(Books::class, 'book_ID');
+        return $this->belongsTo(Books::class, 'book_id');
     }
 }

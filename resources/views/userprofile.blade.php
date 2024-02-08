@@ -9,7 +9,6 @@
 </head>
 
 <x-navbar />
-
 <body>
     <div id="profile-container">
         <div id="nickname">{{$account->name }}</div>
@@ -17,33 +16,65 @@
         <div id="description">
           {{ $account->description}}
         </div>
-        <button id="settings-button" onclick="openModal()">Open Settings</button>
+        <button id="settings-button" onclick="openModal('settingsModal')">Open Settings</button>
     </div>
 
     <!-- Settings Modal -->
     <div class="modal" id="settingsModal">
         <div id="modal-content">
-            <span class="close-button" onclick="closeModal()">&#10006;</span>
-            <h2>Settings</h2>
+            <span class="close-button" onclick="closeModal('settingsModal')">&#10006;</span>
+            <h2 class="text-center mb-3">Settings:</h2>
 
 
             <div class="settings-option">
-                <button class="settings-button">Upload a new picture</button>
+                <h3>
+                    Upload a new Avatar
+                </h3>
+                <div class="settings-button">
+                    <form action="{{route('update.avatar')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div>
+                            
+                            <label for="avatar" class="file-label"></label>
+                            <input type="file" name="avatar">
+                            <button type="submit">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+
+
+            <div class="settings-option">
+                <button class="settings-button" onclick="openModal('descriptionModal')">Edit your description</button>
+                <div class="modal" id="descriptionModal">
+                    <div id="modal-content">
+                        <span class="close-button" onclick="closeModal('descriptionModal')">&#10006;</span>
+                        <h2 class="text-center mb-3">New Description:</h2>
+                        <form action="{{route('update.description')}}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <textarea name="description" id="description" cols="30" rows="10"></textarea>
+                            <button type="submit">Save</button>
+                        </form>
+                    </div>
+                </div>
             </div>
 
 
             <div class="settings-option">
-                <button class="settings-button">Edit your description</button>
-            </div>
-
-
-            <div class="settings-option">
-                <button class="clear-favorites-button">Clear Recents</button>
+                <form action="{{route('clear.recents')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="clearRecent" value="true">
+                    <button type="submit" class="clear-recents-button">Clear Recents</button>
+                </form>
             </div>
 
             <!-- Log Out Button -->
             <div class="settings-option">
-                <button class="logout-button">Log Out</button>
+                <form action="{{ url('/logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="logout-button" >Log Out</button>
+                </form>
             </div>
 
         </div>
@@ -52,101 +83,13 @@
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><hr>
 
     <script>
-        function closeModal() {
-            document.getElementById('settingsModal').style.display = 'none';
+        function closeModal(modalName) {
+            document.getElementById(modalName).style.display = 'none';
         }
 
-        function openModal() {
-            document.getElementById('settingsModal').style.display = 'block';
+        function openModal(modalName) {
+            document.getElementById(modalName).style.display = 'block';
         }
-
-
-const uploadButton = document.querySelector(".settings-button"); // Select the button for uploading a new picture
-
-uploadButton.addEventListener("click", () => {
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = 'image/*';
-    fileInput.addEventListener('change', async (event) => {
-        const selectedFile = event.target.files[0];
-        if (selectedFile) {
-            try {
-                const formData = new FormData();
-                formData.append('avatar', selectedFile);
-
-                // Include CSRF token in the headers
-                const headers = new Headers();
-                headers.append('X-CSRF-TOKEN', '{{ csrf_token() }}');
-
-                // Send the file to the server for processing using Fetch API
-                const response = await fetch('/update-profile', {
-                    method: 'POST',
-                    body: formData,
-                    headers: headers // Include headers containing CSRF token
-                });
-
-                if (response.ok) {
-                    // File uploaded successfully
-                    const responseData = await response.json();
-                    alert(`File uploaded successfully: ${responseData.message}`);
-                    // Update the profile picture or perform other actions as needed
-                    document.getElementById('profile-picture').src = responseData.avatarUrl;
-                } else {
-                    // Handle error if file upload fails
-                    throw new Error('File upload failed');
-                }
-            } catch (error) {
-                console.error('Error uploading file:', error);
-                alert('File upload failed. Please try again.');
-            }
-        }
-    });
-    fileInput.click(); // Trigger the file input dialog
-});
-
-const editDescriptionButton = document.querySelector(".settings-button");
-
-editDescriptionButton.addEventListener("click", () => {
-    // Display a modal or input field for the user to edit their description
-    const newDescription = prompt("Edit your description:");
-    if (newDescription !== null) {
-        // Send the new description to the server for updating the user's profile
-        alert(`Description updated: ${newDescription}`);
-    }
-});
-const clearRecentsButton = document.querySelector(".clear-favorites-button");
-
-clearRecentsButton.addEventListener("click", () => {
-    const confirmed = confirm("Are you sure you want to clear your recents?");
-    if (confirmed) {
-        // Implement the logic to clear the recents (e.g., making an AJAX request)
-        alert("Recents cleared.");
-    }
-});
-    const logoutButton = document.querySelector(".logout-button");
-
-    logoutButton.addEventListener("click", () => {
-        // Send a request to log the user out
-        fetch('{{ route('logout') }}', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            },
-        })
-        .then(response => {
-            if (response.status === 200) {
-                // Redirect the user to the login page or perform other actions as needed
-                window.location.href = '{{ route('login') }}'; // Redirect to the login page
-            } else {
-                // Handle errors or show a message to the user
-                console.error('Logout failed');
-            }
-        });
-    });
-
-
-
-
     </script>
 </body>
 

@@ -21,7 +21,7 @@
             <h2>Search results for your query: <b>{{ $query }}</b></h2>
             @foreach($books as $book)
             <div class="search-book-card">
-                <a href="/books/{{$book->book_ID}}" class="search-book-link">
+                <a href="/books/{{$book->book_id}}" class="search-book-link">
                     <div class="search-book-image">
                         <img src="{{ asset($book->image_path) }}" alt="Book Cover">
                     </div>
@@ -42,7 +42,7 @@
             <h2>Search results for your query: <b>{{ $query }}</b></h2>
             @foreach($authors as $author)
             <div class="search-book-card">
-                <a href="/author/{{$author->author_ID}}" class="search-book-link">
+                <a href="/author/{{$author->author_id}}" class="search-book-link">
                     <div class="search-book-image">
                         <img src="{{ asset($author->image_path) }}" alt="Author Image">
                     </div>

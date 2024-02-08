@@ -15,18 +15,18 @@
                 <p class="book-description"><html>{{ $book->description }}</html></p>
 <div class="button-container">
 <!-- Update the "Read" button to use a form -->
-<form action="{{ route('read.book', ['book_id' => $book->book_ID]) }}" method="POST">
+<form action="{{ route('read.book', ['book_id' => $book->book_id]) }}" method="POST">
     @csrf
-    <input type="hidden" name="chapter" value="{{ $chapterNumbers[$book->book_ID] ?? 1 }}">
+    <input type="hidden" name="chapter" value="{{ $chapterNumbers[$book->book_id] ?? 1 }}">
     <button type="submit" class="read-button">Read</button>
 </form>
     @if ($isInLibrary)
         <button class="add-to-library-button">Already In Library</button>
 
     @else
-    <form action="{{ route('add.to.library',$book->book_ID) }}" method="POST">
+    <form action="{{ route('add.to.library',$book->book_id) }}" method="POST">
         @csrf
-        <input type="hidden" name="book_ID" value="{{ $book->book_ID }}">
+        <input type="hidden" name="book_id" value="{{ $book->book_id }}">
         <button type="submit" class="add-to-library-button">Add to Library</button>
     </form>
     @endif
@@ -68,7 +68,7 @@
             @endphp
 
             @foreach ($sortedChapters as $chapter)
-                <a class="chapter-link" href="{{$book->book_ID}}/{{$sortedChapters->search($chapter) + 1}}">
+                <a class="chapter-link" href="{{$book->book_id}}/{{$sortedChapters->search($chapter) + 1}}">
                     {{$chapter->chapter_name}}
                 </a>
             @endforeach

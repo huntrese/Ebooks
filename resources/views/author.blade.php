@@ -4,7 +4,7 @@
     <title>Author Books</title>
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" type="text/css">
 </head>
-<x-navBar/>
+<x-navbar/>
 <div class="container">
     <h1>{{ $author->name }}</h1>
     
@@ -16,7 +16,7 @@
             @if(isset($books))
             @foreach($books as $book)   
             <div class="book-card">
-                <a href="{{ route('read.book', ['book_id' => $book->book_ID]) }}" class="book-link">
+                <a href="{{ route('read.book', ['book_id' => $book->book_id]) }}" class="book-link">
                     
                     <div class="book-image">
                         <img src="{{ asset($book->image_path) }}" alt="Book Cover">

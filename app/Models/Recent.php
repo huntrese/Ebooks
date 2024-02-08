@@ -17,6 +17,6 @@ class Recent extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(Users::class,"user_ID");
+        return $this->belongsTo(Users::class,"user_id");
     }
 }

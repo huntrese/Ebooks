@@ -15,15 +15,15 @@ class Library extends Model
     protected $table = "library";
 
 
-    public $fillable =["user_ID","book_ID"];    
+    public $fillable =["user_id","book_id"];    
     public $timestamps = false;
 
     public function user(): BelongsToMany
     {
-        return $this->belongsToMany(Users::class,"user_ID","user_ID");
+        return $this->belongsToMany(Users::class,"user_id","user_id");
     }
     public function books(): BelongsToMany
     {
-        return $this->belongsToMany(Books::class,"book_ID","book_ID");
+        return $this->belongsToMany(Books::class,"book_id","book_id");
     }
 }

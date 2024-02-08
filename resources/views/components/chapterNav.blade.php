@@ -20,7 +20,7 @@
                 @foreach ($indexes as $index)
                 
                     <li>
-                        <a class="dropdown-item" href="/books/{{$chapter->book_ID}}/{{$index+1}}">
+                        <a class="dropdown-item" href="/books/{{$chapter->book_id}}/{{$index+1}}">
                             {{$chapters[$index]["chapter_name"] }}
                         </a>
                     </li>

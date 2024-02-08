@@ -7,9 +7,10 @@
 <div class="carousel">
     <?php $bookCount = 0; // Initialize a counter for the number of books displayed ?>
     <?php foreach ($books as $book) : ?>
+    {{-- {{$books}} --}}
         <?php if ($bookCount >= 12) break; // Check if we've reached the maximum number of books ?>
         <div class="preview-book">
-            <a href="/books/{{$book->book_ID}}" class="preview-book-link">
+            <a href="/books/{{$book->book_id}}" class="preview-book-link">
                 <img src="{{ asset(''.$book->image_path) }}" alt="Book Cover" class="preview-book-image">
                 <h2 class="preview-book-title">{{ $book->name }}</h2>
             </a>

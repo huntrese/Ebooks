@@ -19,7 +19,7 @@ class CreateAccountTable extends Migration
             $table->string('description')->nullable();
             $table->string('nickname', 45)->nullable();
             
-            $table->foreign('account_ID', 'account_users_user_ID_fk')->references('user_ID')->on('users');
+            $table->foreign('account_ID', 'account_users_user_ID_fk')->references('user_id')->on('users');
         });
     }
 

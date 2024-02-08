@@ -13,7 +13,7 @@
             <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="/library" class="nav-link">Library</a></li>
             <li class="nav-item">
-                <form action="/search" method="POST" role="search">
+                <form action="{{route('search')}}" method="POST" role="search">
                     @csrf
                     <div class="input-group">
                         <input type="text" class="search-input" name="q" id="search" placeholder="Search books">
